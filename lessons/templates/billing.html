@@ -1,0 +1,95 @@
+{% extends 'base_content.html' %}
+{% block content %}
+<h1>Billing</h1>
+<hr>
+
+
+<h3>Invoices</h3>
+<hr>
+{% if not invoices %}
+        No invoices
+        {% else %}
+        <table class="table rounded text-center" >
+            <thead class="bg-light">
+            <tr>
+                <th scope="col">Invoice Ref:</th>
+                <th scope="col">Client:</th>
+                <th scope="col">Date:</th>
+                <th scope="col">Due Date:</th>
+                <th scope="col">Amount:</th>
+                <th scope="col">Paid:</th>
+                {% comment %} <th scope="col">Refund:</th> {% endcomment %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for invoice in invoices%} 
+                <tr class="{% if invoice.paid %}bg-success{% else %}bg-warning{% endif %}">
+                <td>{{invoice.invoice_ref}}</td>
+                <td>{{invoice.booking.client.email}}</td>
+                <td>{{invoice.date}}</td>
+                <td>{{invoice.due_by_date}}</td>
+                <td>£{{invoice.amount|floatformat:2}}</td>
+                <td>£{{invoice.net_paid|floatformat:2}}</td>
+                {% comment %} <td>{{transfer.refund}}</td> {% endcomment %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    {% endif %}
+<br/>
+<h3>Student Balances</h3>
+<hr>
+<table class="table rounded text-center" >
+<thead class="bg-light">
+<tr>
+    <th scope="col">ID:</th>
+    <th scope="col">Email:</th>
+    <th scope="col">Name:</th>
+    <th scope="col">Invoice Total:</th>
+    <th scope="col">Net Paid:</th>
+    <th scope="col">Owed:</th>
+</tr>
+</thead>
+{% for student in students %}
+<tr>
+    <td>{{student.id}}</td>
+    <td>{{student.email}}</td>
+    <td>{{student.first_name}} {{student.last_name}}</td>
+    <td>£{{student.total_invoice_amount|floatformat:2}}</td>
+    <td>£{{student.total_paid_net|floatformat:2}}</td>
+    <td>£{{student.total_owed|floatformat:2}}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+
+<h3 class="mt-5">Transfers:</h3>
+    <hr/>
+    <br/>
+    {% if not transfers %}
+        No recorded transfers
+        {% else %}
+        <table class="table rounded text-center" >
+            <thead class="bg-light">
+            <tr>
+                <th scope="col">ID:</th>
+                <th scope="col">Date:</th>
+                <th scope="col">Invoice:</th>
+                <th scope="col">Amount:</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for transfer in transfers%} 
+                <td>{{transfer.id}}</td>
+                <td>{{transfer.date}}</td>
+                <td>{{transfer.invoice}}</td>
+                <td>£{{transfer.amount|floatformat:2}}{% if transfer.refund %} (Refund) {% endif %}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    {% endif %}
+{% endblock %}

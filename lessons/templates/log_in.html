@@ -1,0 +1,16 @@
+{% extends 'base_content.html' %}
+{% block content %}
+
+    <h1>Log In</h1>
+    <hr>
+    {% for message in messages %}
+        <p><b>{{ message }}</b></p>
+    {% endfor %}
+    <form action="{% url 'log_in' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        {{ form.as_p }}
+        <input type="submit" value="Log in">
+    </form>
+
+{% endblock %}

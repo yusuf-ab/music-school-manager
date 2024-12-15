@@ -1,0 +1,50 @@
+
+{% extends 'base_content.html' %}
+{% block content %}
+
+<h3>Schedule</h3>
+<hr>
+<br/>
+
+<div class="border rounded p-3">
+    {{ month |safe}}
+    <table class="table ">
+        <thead>
+        {{ week |safe}}
+        </thead>
+        <tbody>
+        {{ table |safe}}
+        </tbody>
+    </table>
+</div>
+
+<br/>
+
+<a class="btn btn-primary" href="{{previous_month}}"> Previous Month </a>
+<a class="btn btn-primary" href="{{next_month}}"> Next Month </a>
+
+<style>
+
+td{
+    max-width: 50px;
+    overflow: auto;
+}
+a{
+    display: block;
+    text-decoration: none;
+}
+::-webkit-scrollbar{
+    width:0px;
+}
+
+ul {
+    list-style: none;
+}
+
+
+
+a {
+  color: #26a0d1;
+}
+</style>
+{% endblock %}

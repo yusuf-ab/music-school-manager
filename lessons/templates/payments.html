@@ -1,0 +1,99 @@
+{% extends 'base_content.html' %}
+{% block content %}
+
+    <h1>Payments</h1>
+    <hr>
+    Record your payments/transfers here here.
+    <br>
+    <br>
+    {% for message in messages %}
+        <p><b>{{ message }}</b></p>
+    {% endfor %}
+    <form action="#" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="btn btn-primary" type="submit" value="Record">
+    </form>
+
+    <style>
+    .table > :not(:first-child) {
+        border-top: 0;
+    }
+    td{
+        text-align: center; 
+        vertical-align: middle;
+    }
+    </style>
+
+    <h3 class="mt-5">Transfers:</h3>
+    <hr/>
+    <br/>
+    {% if not transfers %}
+        No recorded transfers
+        {% else %}
+        <table class="table rounded text-center" >
+            <thead class="bg-light">
+            <tr>
+                <th scope="col">Date:</th>
+                <th scope="col">Invoice:</th>
+                <th scope="col">Amount:</th>
+                {% comment %} <th scope="col">Refund:</th> {% endcomment %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for transfer in transfers%} 
+
+                <td>{{transfer.date}}</td>
+                <td>{{transfer.invoice}}</td>
+                <td>£{{transfer.amount|floatformat:2}}{% if transfer.refund %} (Refund) {% endif %}</td>
+                {% comment %} <td>{{transfer.refund}}</td> {% endcomment %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    {% endif %}
+
+    <h3 class="mt-5">Invoices:</h3>
+    <hr/>
+    <br/>
+    {% if not invoices %}
+        No recorded transfers
+        {% else %}
+        <table class="table rounded text-center" >
+            <thead class="bg-light">
+            <tr>
+                <th scope="col">Invoice Ref:</th>
+                <th scope="col">Date:</th>
+                <th scope="col">Due Date:</th>
+                <th scope="col">Amount:</th>
+                <th scope="col">Paid:</th>
+                {% comment %} <th scope="col">Refund:</th> {% endcomment %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for invoice in invoices%} 
+                <tr class="{% if invoice.paid %}bg-success{% else %}bg-warning{% endif %}">
+                <td>{{invoice.invoice_ref}}</td>
+                <td>{{invoice.date}}</td>
+                <td>{{invoice.due_by_date}}</td>
+                <td>£{{invoice.amount|floatformat:2}}</td>
+                <td>£{{invoice.net_paid|floatformat:2}}</td>
+                {% comment %} <td>{{transfer.refund}}</td> {% endcomment %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    {% endif %}
+
+    <h3 class="mt-5">Balance:</h3>
+    <hr/>
+    <br/>
+
+    <p>Invoice Total: £{{request.user.total_invoice_amount|floatformat:2}}</p>
+    <p>Paid: £{{request.user.total_paid_net|floatformat:2}}</p>
+    <p>Owed: £{{request.user.total_owed|floatformat:2}}</p>
+
+
+{% endblock %}

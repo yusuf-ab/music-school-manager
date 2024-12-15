@@ -1,0 +1,20 @@
+{% extends 'base_content.html' %}
+{% block content %}
+
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-lg-6 col-xl-8">
+            <h3>Invoice {{ form.instance}}</h3>
+            <hr>
+            <p>Client: {{ form.instance.booking.client }}</p>
+            <p>Reference Number: {{ form.instance.invoice_ref }}</p>
+            <p>Issue Date: {{ form.instance.date }}</p>
+            <p>Payment Deadline: {{ form.instance.due_by_date }}</p>
+            <p>Payment Amount: £{{ form.instance.amount|floatformat:2 }}</p>
+            <p>Net Paid: £{{ form.instance.net_paid|floatformat:2 }}</p>
+        </div>
+      </div>
+      <a onclick="history.back()" class="btn btn-primary">< Back</a>
+    </div>
+
+{% endblock %}

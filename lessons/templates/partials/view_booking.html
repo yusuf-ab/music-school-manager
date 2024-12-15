@@ -1,0 +1,19 @@
+<div class="card text-bg-primary mb-3">
+    <div class="card-header">Booking #{{booking.id}}</div>
+    <div class="card-body">
+
+    <p><b>Client Email:</b> {{booking.client}}</p>
+    <p><b>Lesson Interval:</b> {{booking.between_name}}</p>
+    <p><b>Duration:</b> {{booking.duration_name}}</p>
+    <p><b>Teacher:</b> {{booking.teacher}}</p>
+    <p><b>Date:</b> {{booking.date}}</p>
+    <p><b>Time:</b> {{booking.time}}</p>
+    <p><b>Child:</b> {{booking.child}}</p>
+
+    <p><b>Lesson Dates:</b></p>
+        <ol>
+        {% for lesson in booking.dates %}
+            <li>{{ lesson | date:"D j N Y" }}</li>
+        {% endfor %}
+    </div>
+</div>

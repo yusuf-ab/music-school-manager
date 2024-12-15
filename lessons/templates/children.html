@@ -1,0 +1,33 @@
+{% extends 'base_content.html' %}
+{% block content %}
+<h3>Children</h3>
+<hr>
+<br/>
+
+<div class="card">
+    <div class="card-body">
+        Are you a parent / guardian? 
+        Register you children here.
+
+        This will allow you to request lessons for your child.
+        <br/><br/>  
+        <form action="#" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input class="btn btn-primary" type="submit" value="Submit">
+        </form>
+    </div>
+</div>
+
+
+<div class="card card-body mt-4">
+    Your registered children:
+    <ul>
+    {% for child in child_list %}
+    <li>{{ child.first_name }} {{ child.last_name }}</li>
+    {% empty %}
+    <i>You have no registered children<i>
+    {% endfor %}
+    <ul>
+</div>
+{% endblock %}

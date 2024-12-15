@@ -1,0 +1,200 @@
+[
+    {
+        "model": "lessons.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$6k0KdwZPbwT7dBBnxtbeF7$9lKOFlz/X3Kj0qERWAuGGkPyMRucIRi4w23s9Z0i0gM=",
+            "last_login": null,
+            "is_superuser": false,
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-11-28T19:36:58.534Z",
+            "first_name": "John",
+            "last_name": "Doe",
+            "email": "john.doe@example.org",
+            "role": "STUDENT",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "lessons.user",
+        "pk": 2,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$PKsXzPp0bwKWshn8g2Jpom$SvUyR96Zft774p8y1qZZGs0wOPvMPEJignq4Vln2b2c=",
+            "last_login": null,
+            "is_superuser": false,
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-11-28T19:36:58.679Z",
+            "first_name": "Petra",
+            "last_name": "Pickles",
+            "email": "petra.pickles@example.org",
+            "role": "ADMIN",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "lessons.user",
+        "pk": 3,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$SG2n4CmcEIfUx2o0vPTXAq$Hw+GpPu1VI60KInRnJWC7vJmFdAxNXw1VkIfImNnehU=",
+            "last_login": null,
+            "is_superuser": false,
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-11-28T19:36:58.785Z",
+            "first_name": "Marty",
+            "last_name": "Major",
+            "email": "marty.major@example.org",
+            "role": "DIRECTOR",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "lessons.user",
+        "pk": 4,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$vK4sR1bC1RtiHNZ7WkSk2t$6bKIc1BAFmHDlc369UkE9/irHlDZE4nVdfswFMh0WKw=",
+            "last_login": null,
+            "is_superuser": false,
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-11-28T19:36:58.885Z",
+            "first_name": "Ryan",
+            "last_name": "Fuller",
+            "email": "ryan.fuller@example.org",
+            "role": "STUDENT",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "lessons.user",
+        "pk": 5,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$NkCFNwVfybk4KfiNMQeQXp$uxkHhvXCbiwMjLAnOtHX34lMe4aDJiY/ssj9CXPS7do=",
+            "last_login": null,
+            "is_superuser": false,
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-11-28T19:36:59.009Z",
+            "first_name": "Peter",
+            "last_name": "Smith",
+            "email": "peter.smith@example.org",
+            "role": "ADMIN",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "lessons.user",
+        "pk": 6,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$VaIOeaYSz9sVZIyDrkwEWP$4NOrCC8Ep8QgOPrJQzqUKwdLuWZJixTPgRUBDHKMLSk=",
+            "last_login": null,
+            "is_superuser": false,
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-11-28T19:36:59.149Z",
+            "first_name": "Norma",
+            "last_name": "Noe",
+            "email": "norma.noe@example.org",
+            "role": "TEACHER",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "lessons.user",
+        "pk": 7,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$v8NXsMC8oOpc1CKPf0z71V$sjaz+bBJrzZ2LhAh9bYvhOD+C0ygAbOfdSTKgVL8iiE=",
+            "last_login": null,
+            "is_superuser": false,
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-11-28T19:36:59.263Z",
+            "first_name": "Jane",
+            "last_name": "Doe",
+            "email": "jane.doe@example.org",
+            "role": "TEACHER",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "lessons.child",
+        "pk": 1,
+        "fields": {
+            "first_name": "Alice",
+            "last_name": "Doe",
+            "parent": 1
+        }
+    },
+    {
+        "model": "lessons.child",
+        "pk": 2,
+        "fields": {
+            "first_name": "Bob",
+            "last_name": "Doe",
+            "parent": 1
+        }
+    },
+    {
+        "model": "lessons.term",
+        "pk": 1,
+        "fields": {
+            "name": "Term one",
+            "start_date": "2022-09-01",
+            "end_date": "2022-10-21"
+        }
+    },
+    {
+        "model": "lessons.term",
+        "pk": 2,
+        "fields": {
+            "name": "Term two",
+            "start_date": "2022-10-31",
+            "end_date": "2022-12-16"
+        }
+    },
+    {
+        "model": "lessons.term",
+        "pk": 3,
+        "fields": {
+            "name": "Term three",
+            "start_date": "2023-01-03",
+            "end_date": "2023-02-10"
+        }
+    },
+    {
+        "model": "lessons.term",
+        "pk": 4,
+        "fields": {
+            "name": "Term four",
+            "start_date": "2023-02-20",
+            "end_date": "2023-03-31"
+        }
+    },
+    {
+        "model": "lessons.term",
+        "pk": 5,
+        "fields": {
+            "name": "Term five",
+            "start_date": "2023-04-17",
+            "end_date": "2023-05-26"
+        }
+    },
+    {
+        "model": "lessons.term",
+        "pk": 6,
+        "fields": {
+            "name": "Term six",
+            "start_date": "2023-06-05",
+            "end_date": "2023-07-21"
+        }
+    }
+]

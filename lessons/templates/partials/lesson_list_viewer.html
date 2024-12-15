@@ -1,0 +1,172 @@
+{% if manage %}
+   <a class="btn btn-primary mb-4" href="{% url 'book_lesson_new' %}"> New Booking </a>
+  {% endif %}
+
+<ul class="nav nav-pills mb-2 border rounded p-3" id="pills-tab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="pills-bookings-tab" data-bs-toggle="pill" data-bs-target="#pills-bookings" type="button" role="tab">Bookings</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="pills-requests-tab" data-bs-toggle="pill" data-bs-target="#pills-requests" type="button" role="tab">Requests</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="pills-archive-tab" data-bs-toggle="pill" data-bs-target="#pills-archive" type="button" role="tab">Archived Requests</button>
+  </li>
+</ul>
+<style>
+.table > :not(:first-child) {
+    border-top: 0;
+}
+td{
+    text-align: center;
+    vertical-align: middle;
+}
+</style>
+<div class="tab-content border p-3" id="pills-tabContent">
+  <div class="tab-pane" id="pills-bookings" role="tabpanel" tabindex="0">
+    <!-- Booking Tab -->
+    {% if not bookings %}
+    No booked lessons
+    {% else %}
+    <table class="table rounded text-center" >
+        <thead class="bg-light">
+        <tr>
+            <th scope="col">#</th>
+            {% if manage %}<th scope="col">Client:</th>{% endif %}
+            <th scope="col">Child:</th>
+            <th scope="col">Lessons:</th>
+            <th scope="col">Days Between Lessons:</th>
+            <th scope="col">Duration:</th>
+            <th scope="col">Teacher:</th>
+            <th scope="col">Start Date:</th>
+            <th scope="col">Time:</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings%}
+            <tr id="booking-{{booking.id}}">
+            <td>{{booking.id}}</td>
+            {% if manage %}<td>{{booking.client}}</td>{% endif %}
+            <td>{% if booking.child %}{{booking.child}}{% else %} n/a {% endif %}</td>
+            <td>{{booking.lessons}}</td>
+            <td>{{booking.between_name}}</td>
+            <td>{{booking.duration_name}}</td>
+            <td>{{booking.teacher}}</td>
+            <td>{{booking.date}}</td>
+            <td>{{booking.time}}</td>
+            <td>
+            {% if manage %}
+            <a href="{% url 'book_lesson_edit' booking.id %}" class="btn btn-primary"> Edit </a>
+            {% else %}
+             <a href="{% url 'view_booking' booking.id %}" class="btn btn-primary"> View </a>
+            {% endif %}
+            </td>
+            {% if booking.get_invoice %}
+            <td>
+                <a class="btn btn-secondary" href="{% url 'invoice' booking.get_invoice.id %}"> Invoice </a>
+            </td>
+            {% else %}
+            <td></td>
+            {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+  </div>
+  <div class="tab-pane show active" id="pills-requests" role="tabpanel" tabindex="0">
+
+            {% if not active_requests %}
+            No active requests
+            {% else %}
+            <table class="table rounded text-center" >
+                <thead class="bg-light">
+                <tr>
+                    <th scope="col">#</th>
+                    {% if manage %}<th scope="col">Client:</th>{% endif %}
+                    <th scope="col">Child:</th>
+                    <th scope="col">Availability:</th>
+                    <th scope="col">Number of Lessons:</th>
+                    <th scope="col">Lesson Interval:</th>
+                    <th scope="col">Duration:</th>
+                    <th scope="col">Info:</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for request in active_requests%}
+                    {% if not request.fulfilled %}
+                    <tr id="request-{{request.id}}">
+                    <td>{{request.id}}</td>
+                    {% if manage %}<td>{{request.client}}</td>{% endif %}
+                    <td>{% if request.child %}{{request.child}}{% else %} n/a {% endif %}</td>
+                    <td>{{request.availability | truncatechars:200}}</td>
+                    <td>{{request.lessons}}</td>
+                    <td>{{request.between_name}}</td>
+                    <td>{{request.duration_name}}</td>
+                    <td>{{request.info | truncatechars:200}}</td>
+                    <td>
+                        {% if not manage %}
+                            
+                            <form action="#" method="post">
+                                {% csrf_token %}
+                                <a class="btn btn-secondary" href="{% url 'edit_request' request.id %}"> Edit </a>  
+                                <input type="hidden" name="id" value="{{request.id}}" />
+                                <input class="btn btn-danger" type="submit" name="delete_request" value="Delete">
+                            </form>
+                        {% endif %}
+                        {% if manage %}
+                        <a class="btn btn-danger" href="{% url 'book_lesson' request.id %}"> Book </a>
+                        {% endif %}
+                    </td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+
+            {% endif %}
+
+  </div>
+
+
+  <div class="tab-pane" id="pills-archive" role="tabpanel" aria-labelledby="pills-archive-tab" tabindex="0">
+          {% if not fulfilled_requests %}
+            No archived requests
+            {% else %}
+            <table class="table rounded text-center" >
+                <thead class="bg-light">
+                <tr>
+                    <th scope="col">#</th>
+                    {% if manage %}<th scope="col">Client:</th>{% endif %}
+                    <th scope="col">Child:</th>
+                    <th scope="col">Availability:</th>
+                    <th scope="col">Number of Lessons:</th>
+                    <th scope="col">Days Between Lessons:</th>
+                    <th scope="col">Duration:</th>
+                    <th scope="col">Info:</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for request in fulfilled_requests%}
+                    {% if request.fulfilled %}
+                    <tr id="request-{{request.id}}">
+                    <td>{{request.id}}</td>
+                    {% if manage %}<td>{{request.client}}</td>{% endif %}
+                    <td>{% if request.child %}{{request.child}}{% else %} n/a {% endif %}</td>
+                    <td>{{request.availability | truncatechars:200}}</td>
+                    <td>{{request.lessons}}</td>
+                    <td>{{request.between_name}}</td>
+                    <td>{{request.duration_name}}</td>
+                    <td>{{request.info | truncatechars:200}}</td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+
+            {% endif %}
+  </div>
+</div>

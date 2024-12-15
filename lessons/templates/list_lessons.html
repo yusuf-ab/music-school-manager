@@ -1,0 +1,8 @@
+{% extends 'base_content.html' %}
+{% block content %}
+<h3>Lesson Bookings & Requests</h3>
+<hr>
+<a class="btn btn-primary" href="{% url 'lessons' %}"> New Request </a>
+<br/><br/>
+{% include 'partials/lesson_list_viewer.html' %}
+{% endblock %}

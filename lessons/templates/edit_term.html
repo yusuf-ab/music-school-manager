@@ -1,0 +1,13 @@
+{% extends 'base_content.html' %}
+{% block content %}
+<h3>Edit term</h3>
+<hr>
+{% for message in messages %}
+    <p><b>{{ message }}</b></p>
+{% endfor %}
+<form action="#" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save">
+</form>
+{% endblock %}

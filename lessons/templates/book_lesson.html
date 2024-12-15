@@ -1,0 +1,63 @@
+{% extends 'base_content.html' %}
+{% block content %}
+    <h1>Book Lesson</h1>
+    <hr>
+    <br/>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col">
+                    <div class="card text-bg-primary mb-3">
+                        {% if edit %}
+                        <div class="card-header">Edit Booking</div>
+                        {% else %}
+                        <div class="card-header">New Booking</div>
+                        {% endif %}
+                        <div class="card-body">
+                            <form action="#" method="post">
+                                {% csrf_token %}
+                                {% if client %}
+                                <p>Client: 
+                                {{ client.first_name }} {{ client.last_name }} ({{ client }})
+                                </p>
+                                {% endif %}
+                                {{ form.as_p }}
+                                <input class="btn btn-primary" type="submit" value="Submit">
+                            </form>
+                        </div>
+                    </div>
+                    {% include 'partials/messages.html' %}
+            </div>
+            
+
+            
+
+            <div class="col">
+                {% if src_request %}
+                <div class="card text-bg-primary mb-3">
+                    <div class="card-header">Request #{{src_request.id}}</div>
+                    <div class="card-body">
+                        <b >Client:</b>
+                        <p class="card-text">{{ src_request.client.first_name }} {{ src_request.client.last_name }} ({{ src_request.client }})</p>
+                        <b >Availability:</b>
+                        <p>{{src_request.availability}}</p>
+                        <b >Number of lessons:</b>
+                        <p>{{src_request.lessons}}</p>
+                        <b >Days between lessons:</b>
+                        <p>{{src_request.between_name}}</p>
+                        <b >Lesson Duration:</b>
+                        <p>{{src_request.duration_name}}</p>
+                        <b >Info:</b>
+                        <p>{{src_request.info}}</p>
+                    </div>
+                </div>
+                {% elif edit %}
+                {% include 'partials/view_booking.html' with booking=form.instance %}
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base_content.html' %}
+{% block content %}
+<h3>Terms</h3>
+<hr>
+{% if not terms %}
+    There are no terms
+    {% else %}
+    <table class="table rounded text-center" >
+        <thead class="bg-light">
+        <tr>
+            <th scope="col">Name:</th>
+            <th scope="col">Start Date:</th>
+            <th scope="col">End date::</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for term in terms %}
+        <tr>
+            <td>{{term.name}}</td>
+            <td>{{term.start_date}}</td>
+            <td>{{term.end_date}}</td>
+            <td><form action="#" method="post">
+                    {% csrf_token %} 
+                    <input type="hidden" name="id" value="{{term.id}}" />
+                    <a href="{% url 'edit_term' term.id %}" class="btn btn-primary">Edit</a>
+                    <input class="btn btn-danger" type="submit" name="delete" value="Delete">
+                </form>
+                </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endif %}
+
+<br/>
+<br/>
+
+<h3>Add term</h3>
+<hr>
+{% for message in messages %}
+    <p><b>{{ message }}</b></p>
+{% endfor %}
+<form action="#" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save">
+</form>
+{% endblock %}

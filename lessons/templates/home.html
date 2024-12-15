@@ -1,0 +1,33 @@
+{% extends 'base_content.html' %}
+{% block content %}
+    <h1>Home</h1>
+    <hr>
+    {% if not user.is_authenticated %}
+    <p><a class="btn btn-primary" href="{% url 'sign_up' %}">Sign Up</a></p>
+    <p><a class="btn btn-primary" href="{% url 'log_in' %}">Log In</a></p>
+    {% else %}
+
+    Welcome to the music manager, {{user.first_name}} {{user.last_name}}.<br>
+    You are a {{ user.role_name }}.
+    <br/>
+    <br/>
+    You can access a range of features depending on your user role
+    by navigating using the top menu.
+    <br/>
+    <br/>
+    Students can view and request lessons with music teachers in the "Lessons" section.<br/>
+    You can also see a list of your booked lessons and manage payments in the "List Lessons" and "Payments" pages.
+    <br/>
+    <br/>
+    Students and Teachers can see their schedules and upcoming lessons in the "Schedule" section.<br/>
+    <br/>
+        {% if user.role == "ADMIN" %}
+        Admins can manage lesson requests and book instructors for specific times and dates in the "Manage Lessons" and "Book Lesson" sections.
+        You can also access billing information in the "Billing" page and manage terms in the "Terms" pages.
+        <br/>
+        {% endif %}
+        {% if user.role == "DIRECTOR" or user.role == "SUPER_ADMIN" %}
+        Super admins can manage user permissions in the "Permissions" section.
+        {% endif %}
+    {% endif %}
+{% endblock %}

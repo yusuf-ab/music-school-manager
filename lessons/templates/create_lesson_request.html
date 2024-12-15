@@ -1,0 +1,40 @@
+{% extends 'base_content.html' %}
+{% block content %}
+    {% if edit %}
+    <h3>Edit Lesson Request</h3>
+    {% else %}
+    <h3>Create New Lesson Request</h3>
+    {% endif %}
+    <hr>
+    <br/>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col">
+                    <div class="card text-bg-primary mb-3">
+                        {% if edit %}
+                        <div class="card-header">Edit Lesson Request</div>
+                        {% else %}
+                        <div class="card-header">New Lesson Request</div>
+                        {% endif %}
+                        <div class="card-body">
+                            {% for message in messages %}
+                                <p><b>{{ message }}</b></p>
+                            {% endfor %}
+                            <form action="#" method="post">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <input class="btn btn-primary" type="submit" value="Submit">
+                            </form>
+                        </div>
+                    </div>
+            </div>
+
+            <div class="col">
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
